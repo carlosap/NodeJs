@@ -1,5 +1,5 @@
 {
-  "name": "NodeScholarship",
+  "name": "Scholarship",
   "version": "0.0.0",
   "description": "NodeScholarship",
   "main": "app.js",
@@ -13,6 +13,8 @@
     "mkdirp": "^0.5.1",
     "cheerio": "^0.20.0",
     "request": "^2.72.0",
-    "sleep": "^3.0.1"
+    "sleep": "^3.0.1",
+    "form-data": "1.0.0-rc4"  
+
   }
 }
