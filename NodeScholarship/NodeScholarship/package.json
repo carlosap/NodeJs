@@ -2,7 +2,7 @@
   "name": "Scholarship",
   "version": "0.0.0",
   "description": "NodeScholarship",
-  "main": "app.js",
+  "main": "scholarship/details.js",
   "scripts": {
     "start": "node app.js"
   },

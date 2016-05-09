@@ -12,7 +12,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>76ca8bbd-1884-4403-b26d-5b2974b4ff6e</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>app.ts</StartupFile>
+    <StartupFile>scholarship\details.ts</StartupFile>
     <StartWebBrowser>False</StartWebBrowser>
     <SearchPath>
     </SearchPath>
@@ -37,8 +37,9 @@
     <TypeScriptCompile Include="app.ts" />
     <Content Include="package.json" />
     <Content Include="README.md" />
-    <TypeScriptCompile Include="details.ts" />
+    <TypeScriptCompile Include="scholarship\details.ts" />
     <TypeScriptCompile Include="scholarship\main.ts" />
+    <TypeScriptCompile Include="scholarship\productlist.ts" />
     <TypeScriptCompile Include="scripts\form-data\form-data.d.ts" />
     <TypeScriptCompile Include="scripts\typings\cheerio.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\cheerio.d.ts" />
