@@ -9,6 +9,7 @@ var ProductList = (function () {
     function ProductList(options) {
         this.options = {
             stateId: 0,
+            state: "",
             url: "",
             outputDirectory: "output",
             fileName: "",
@@ -28,7 +29,8 @@ var ProductList = (function () {
             var state = item.State.replace(" Scholarships", "");
             _this.options.outputDirectory = _this.options.outputDirectory + "/" + state;
             directory.createDirectory(_this.options.outputDirectory);
-            _this.options.fileName = "./" + _this.options.outputDirectory + "/" + state + _this.options.pageNumber + ".json";
+            _this.options.fileName = "./" + _this.options.outputDirectory + "/" + state + "_" + _this.options.pageNumber + ".json";
+            _this.options.state = state;
             console.log("State Name: " + state);
             console.log("File Name: " + _this.options.fileName);
             req.url = url;
@@ -39,7 +41,7 @@ var ProductList = (function () {
                         ctr++;
                         var suburl = url.replace("?page=" + _this.options.pageNumber, "") + stateChildSubUrl.attribs.href.replace("./", "");
                         subStateUrls.push({ State: state, Link: suburl });
-                        sleep.usleep(20000);
+                        sleep.usleep(50000);
                         console.log(ctr + "- " + suburl);
                     });
                 }

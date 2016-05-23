@@ -12,7 +12,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>76ca8bbd-1884-4403-b26d-5b2974b4ff6e</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>scholarship\details.ts</StartupFile>
+    <StartupFile>app.ts</StartupFile>
     <StartWebBrowser>False</StartWebBrowser>
     <SearchPath>
     </SearchPath>
@@ -33,7 +33,6 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="analytics\AdobeDtm.ts" />
     <TypeScriptCompile Include="app.ts" />
     <Content Include="package.json" />
     <Content Include="README.md" />
@@ -49,10 +48,8 @@
     <TypeScriptCompile Include="Scripts\typings\cheerio.d.ts" />
     <TypeScriptCompile Include="scripts\typings\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\lodash-3.10.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\lodash-3.10.d.ts" />
     <TypeScriptCompile Include="scripts\typings\lodash.d.ts" />
     <TypeScriptCompile Include="scripts\node\node.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\node.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\node.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\node.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\node.d.ts" />
@@ -73,7 +70,6 @@
     <TypeScriptCompile Include="system\web\request.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="analytics\" />
     <Folder Include="scholarship\" />
     <Folder Include="system\" />
     <Folder Include="scripts\" />
@@ -93,7 +89,8 @@
     <TypeScriptModuleKind>
     </TypeScriptModuleKind>
     <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
-    <TypeScriptOutFile />
+    <TypeScriptOutFile>
+    </TypeScriptOutFile>
     <TypeScriptOutDir />
     <TypeScriptGeneratesDeclarations>True</TypeScriptGeneratesDeclarations>
     <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>

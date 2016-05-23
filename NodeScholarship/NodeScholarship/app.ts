@@ -9,7 +9,7 @@ var app = new ScholarShip.Main.Parser();
 app.options.url = 'https://www.schoolsoup.com/scholarship-directory/state/';
 app.options.stateId = <number>(process.argv[2] || 4);
 app.options.pageNumber = <number>(process.argv[3] || 1);
-console.log(`Staring State Index: ${app.options.pageNumber} Page Number:${app.options.pageNumber}`);
+console.log(`Staring State Index: ${app.options.stateId} Page Number: ${app.options.pageNumber}`);
 app.main((result: any[]): void => {
     if (result.length > 0)
         app.options.stateList = result;
@@ -38,6 +38,5 @@ app.main((result: any[]): void => {
         } else {
             console.log("No Records Found");
         }
-        console.log("end");
     });
 });

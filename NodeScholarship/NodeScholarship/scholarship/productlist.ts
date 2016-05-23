@@ -11,6 +11,7 @@ export interface IStatePl {
 export class ProductList {
     options = {
         stateId: 0,
+        state:"",
         url: "",
         outputDirectory: "output",
         fileName: "",
@@ -32,7 +33,8 @@ export class ProductList {
             var state = item.State.replace(" Scholarships", "");
             _this.options.outputDirectory = _this.options.outputDirectory + "/" + state;
             directory.createDirectory(_this.options.outputDirectory);
-            _this.options.fileName = "./" + _this.options.outputDirectory + "/" + state + _this.options.pageNumber + ".json";
+            _this.options.fileName = "./" + _this.options.outputDirectory + "/" + state + "_" + _this.options.pageNumber + ".json";
+            _this.options.state = state;
             console.log(`State Name: ${state}`);
             console.log(`File Name: ${_this.options.fileName}`);
             req.url = url;
@@ -43,7 +45,7 @@ export class ProductList {
                         ctr++;
                         var suburl = url.replace("?page=" + _this.options.pageNumber, "") + stateChildSubUrl.attribs.href.replace("./", "");
                         subStateUrls.push({ State: state, Link: suburl });
-                        sleep.usleep(20000);
+                        sleep.usleep(50000);
                         console.log(ctr + "- " + suburl);
                     });
                 }

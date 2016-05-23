@@ -1,9 +1,9 @@
 C:\code\Node\NodeScholarship\CsharpScholarship\bin\Debug\CsharpScholarship.exe.config
 C:\code\Node\NodeScholarship\CsharpScholarship\bin\Debug\CsharpScholarship.exe
 C:\code\Node\NodeScholarship\CsharpScholarship\bin\Debug\CsharpScholarship.pdb
-C:\code\Node\NodeScholarship\CsharpScholarship\obj\Debug\CsharpScholarship.csprojResolveAssemblyReference.cache
 C:\code\Node\NodeScholarship\CsharpScholarship\obj\Debug\CsharpScholarship.exe
 C:\code\Node\NodeScholarship\CsharpScholarship\obj\Debug\CsharpScholarship.pdb
 C:\code\Node\NodeScholarship\NodeScholarship\CsharpScholarship.exe.config
 C:\code\Node\NodeScholarship\NodeScholarship\CsharpScholarship.exe
 C:\code\Node\NodeScholarship\NodeScholarship\CsharpScholarship.pdb
+C:\code\Node\NodeScholarship\CsharpScholarship\obj\Debug\CsharpScholarship.csprojResolveAssemblyReference.cache
