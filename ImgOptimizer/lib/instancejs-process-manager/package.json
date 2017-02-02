@@ -1,0 +1,58 @@
+{
+  "name": "instancejs-process-manager",
+  "version": "0.1.17",
+  "description": "Manages rolling restarts and zero downtime deployments. Uses heartbeat method to kill unresponsive processes.",
+  "main": "lib/instancejs-process-manager",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kevinraz/instancejs-process-manager.git"
+  },
+  "keywords": [
+    "zero",
+    "downtime",
+    "deployment",
+    "node",
+    "server",
+    "cluster",
+    "rolling",
+    "restart"
+  ],
+  "author": {
+    "name": "Kevin Razmus",
+    "url": "http://numberfiveone.com"
+  },
+  "dependencies": {
+    "cluster": "^0.7.7",
+    "socket.io": "~0.9.17"
+  },
+  "optionalDependencies": {
+    "socket.io": "~0.9.17"
+  },
+  "bugs": {
+    "url": "https://github.com/kevinraz/instancejs-process-manager/issues"
+  },
+  "homepage": "https://github.com/kevinraz/instancejs-process-manager",
+  "_id": "instancejs-process-manager@0.1.17",
+  "dist": {
+    "shasum": "65fdfaac985e5fac366fb473d47ab472003622f2",
+    "tarball": "http://registry.npmjs.org/instancejs-process-manager/-/instancejs-process-manager-0.1.17.tgz"
+  },
+  "_from": "instancejs-process-manager@~0.1.17",
+  "_npmVersion": "1.3.14",
+  "_npmUser": {
+    "name": "kevinraz",
+    "email": "kevinraz@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "kevinraz",
+      "email": "kevinraz@gmail.com"
+    }
+  ],
+  "directories": {},
+  "_shasum": "65fdfaac985e5fac366fb473d47ab472003622f2",
+  "_resolved": "https://registry.npmjs.org/instancejs-process-manager/-/instancejs-process-manager-0.1.17.tgz"
+}

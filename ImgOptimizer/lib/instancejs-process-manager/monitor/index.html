@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>body { padding-top: 60px; }</style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+</head>
+<html>
+    <body>
+        <div class="header">
+            <div class="navbar navbar-fixed-top" style="z-index: 10;">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <a class="brand" href="#">InstanceJS Server Monitor</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row-fluid" >
+                <div id="content" class="span12">
+                    <div class="well span4" style="text-align: center;">
+                        <h3>5 Seconds</h3>
+                        <p id="connections" style="font-size: 46px;line-height: 46px;">0</p>
+                        <h5>active connections (5s)</h5>
+                    </div>
+                    <div class="well span4" style="text-align: center;">
+                        <h3>1 Minute</h3>
+                        <p id="connections2" style="font-size: 46px;line-height: 46px;">0</p>
+                        <h5>active connections (1m)</h5>
+                    </div>
+                    <div class="well span4" style="text-align: center;">
+                        <h3>1 Hour</h3>
+                        <p id="connections3" style="font-size: 46px;line-height: 46px;">0</p>
+                        <h5>active connections (1h)</h5>
+                    </div>
+                    <legend>Real Time Requests</legend>
+                    <div class="row-fluid">
+                        <table id="visits" class="table table-bordered table-striped table-condensed">
+                            <thead>
+                            <tr><td>URL</td><td>IP</td><td>Timestamp</td></tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <legend>Cluster</legend>
+                    <div class="row-fluid">
+                        <table id="workers" class="table table-bordered table-striped table-condensed">
+                            <thead>
+                            <tr><td>ID</td><td>Start Time / Heartbeat</td><td>RSS</td><td>Heap Total</td><td>Heap Used</td></tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="well span4" style="text-align: center;">
+                            <h3>Server Uptime</h3>
+                            <p id="uptime" style="font-size: 36px;line-height: 46px;">0</p>
+                            <h5>&nbsp;</h5>
+                        </div>
+
+                        <div class="well span4" style="text-align: center;">
+                            <h3>Memory Usage</h3>
+                            <p id="memused" style="font-size: 36px;line-height: 46px;">0</p>
+                            <h5>System Memory</h5>
+                        </div>
+
+                        <div class="well span4" style="text-align: center;">
+                            <h3>Load Avg.</h3>
+                            <h5 id="load" style="font-size: 24px; line-height: 32px;">0</h5>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="lib/jquery-1.8.2.min.js"></script>
+        <script>
+            var socket = io.connect();
+            var pages = {};
+            var lastPageId = 0;
+            var connections = [];
+
+            socket.on('connect', function () {
+                console.log('Socket connected');
+                socket.on('update', function (msg) {
+                    if(msg.active){
+                        if(msg.active.seconds === 0){
+                            $('#connections').html('0');
+                        }else{
+                            jQuery({activeCount: $('#connections').text()}).animate({activeCount: msg.active.seconds}, {
+                                duration: 1000,
+                                easing:'swing',
+                                step: function() {
+                                    $('#connections').html(Math.ceil(this.activeCount));
+                                }
+                            });
+                        }
+                        if(msg.active.minute === 0){
+                            $('#connections2').html('0');
+                        }else{
+                            jQuery({activeCount: $('#connections2').text()}).animate({activeCount: msg.active.minute}, {
+                                duration: 1000,
+                                easing:'swing', // can be anything
+                                step: function() { // called on every step
+                                    // Update the element's text with rounded-up value:
+                                    $('#connections2').html(Math.ceil(this.activeCount));
+                                }
+                            });
+                        }
+                        if(msg.active.hour === 0){
+                            $('#connections3').html('0');
+                        }else{
+                            jQuery({activeCount: $('#connections3').text()}).animate({activeCount: msg.active.hour}, {
+                                duration: 1000,
+                                easing:'swing', // can be anything
+                                step: function() { // called on every step
+                                    // Update the element's text with rounded-up value:
+                                    $('#connections3').html(Math.ceil(this.activeCount));
+                                }
+                            });
+                        }
+                    }else{
+                        $('#connections').html('0');
+                        $('#connections2').html('0');
+                        $('#connections3').html('0');
+                    }
+
+                    $('#visits tbody').empty();
+                    if (msg.connections && msg.connections.length) {
+                        for(i = 0; i < msg.connections.length; i++){
+                            $('#visits tbody').append('<tr><td>' + msg.connections[i].url + '</td><td>' + msg.connections[i].ip + '</td><td>' + msg.connections[i].timestamp + '</td></tr>');
+                        }
+                    }
+
+                    $('#workers tbody').empty();
+                    if (msg.managedProcesses) {
+                        $('#workers tbody').prepend('<tr><td><strong>' + msg.server.master.pid + '</strong></td><td><strong>' + secondsToDate( msg.server.master.timestamp) + '</strong></td><td><strong>' + formatBytes( msg.server.master.mem.rss) + '</strong></td><td><strong>' + formatBytes( msg.server.master.mem.heapTotal) + '</strong></td><td><strong>' + formatBytes( msg.server.master.mem.heapUsed ) + '</strong></td></tr>');
+                        for(var key in msg.managedProcesses){
+                            $('#workers tbody').append('<tr><td>' + key + '</td><td>' + secondsToDate(msg.managedProcesses[key].timestamp) + '</td><td>' + formatBytes(msg.managedProcesses[key].mem .rss) + '</td><td>' + formatBytes(msg.managedProcesses[key].mem .heapTotal) + '</td><td>' + formatBytes(msg.managedProcesses[key].mem .heapUsed) + '</td></tr>');
+                        }
+                    }
+
+
+
+                    var freemem = formatBytes(msg.server.freemem);
+                    var totalmem = formatBytes(msg.server.totalmem);
+                    var usedmem = formatBytes(msg.server.totalmem - msg.server.freemem);
+
+                    var load1min = msg.server.loadavg[0];
+                    var load5min = msg.server.loadavg[1];
+                    var load15min = msg.server.loadavg[2];
+
+                    var uptimeSeconds = Math.floor( msg.server.uptime );
+                    var uptimeMinutes = 0;
+                    var uptimeHours = 0;
+
+                    if(uptimeSeconds > 59){
+                        uptimeMinutes = Math.floor(uptimeSeconds / 60);
+                        uptimeSeconds = uptimeSeconds - (uptimeMinutes * 60);
+                    }
+                    if(uptimeMinutes > 59){
+                        uptimeHours = Math.floor(uptimeMinutes / 60);
+                        uptimeMinutes = uptimeMinutes - (uptimeHours * 60);
+                    }
+
+
+                    var startTimeSeconds = Math.floor( (new Date().getTime() - msg.server.startTime) / 1000 );
+                    var startTimeMinutes = 0;
+                    var startTimeHours = 0;
+
+                    if(startTimeSeconds > 59){
+                        startTimeMinutes = Math.floor(startTimeSeconds / 60);
+                        startTimeSeconds = startTimeSeconds - (startTimeMinutes * 60);
+                    }
+                    if(startTimeMinutes > 59){
+                        startTimeHours = Math.floor(startTimeMinutes / 60);
+                        startTimeMinutes = startTimeMinutes - (startTimeHours * 60);
+                    }
+
+                    $('#uptime').html(startTimeHours + 'h ' + startTimeMinutes + 'm ' + startTimeSeconds + 's');
+                    $('#uptime').next().html('Sys Uptime: ' + uptimeHours + 'h ' + uptimeMinutes + 'm ' + uptimeSeconds + 's');
+                    $('#memused').html(usedmem);
+                    $('#memused').next().html('Total: ' + totalmem + ' Free: ' + freemem);
+                    $('#load').html('1 Min: ' + load1min + '<br>5 Min: ' + load5min + '<br>15 Min: ' + load15min);
+
+                });
+            });
+
+            function formatBytes(fileSizeInBytes) {
+
+                var i = -1;
+                var byteUnits = [' kB', ' MB', ' GB', ' TB', 'PB', 'EB', 'ZB', 'YB'];
+                do {
+                    fileSizeInBytes = fileSizeInBytes / 1024;
+                    i++;
+                } while (fileSizeInBytes > 1024);
+
+                return Math.max(fileSizeInBytes, 0.1).toFixed(1) + byteUnits[i];
+            };
+
+            function secondsToDate (d) {
+                return new Date(d);
+            }
+        </script>
+    </body>
+</html>
