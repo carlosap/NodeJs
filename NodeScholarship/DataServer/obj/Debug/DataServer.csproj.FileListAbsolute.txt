@@ -1,5 +1,0 @@
-C:\code\Node\NodeScholarship\DataServer\bin\Debug\DataServer.dll
-C:\code\Node\NodeScholarship\DataServer\bin\Debug\DataServer.pdb
-C:\code\Node\NodeScholarship\DataServer\obj\Debug\DataServer.dll
-C:\code\Node\NodeScholarship\DataServer\obj\Debug\DataServer.pdb
-C:\code\Node\NodeScholarship\DataServer\obj\Debug\DataServer.csprojResolveAssemblyReference.cache
