@@ -1,0 +1,2 @@
+- npm install -g sails : install sails in your computer
+- sails new projectName : sails command line to create new projects.
